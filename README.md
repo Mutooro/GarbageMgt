@@ -4,16 +4,6 @@
 
 The Garbage Complaint System is a web-based application developed using PHP and the Tailwind CSS framework. It is designed to streamline the process of managing garbage collection complaints, bin assignments, and user interactions. The system is divided into distinct directories to manage different roles and functionalities:
 
-- **Admin**: This directory contains all the functionalities related to administrators, including bin creation, driver assignment, complaint verification, profile editing, and password changes.
-
-- **User**: The User directory handles user-related operations such as registration, viewing available bins, submitting complaints, changing passwords, and updating user profiles.
-
-- **Driver**: In the Driver directory, you'll find files dedicated to drivers' tasks, including receiving assigned tasks, updating their status, changing passwords, and editing their profiles.
-
-- **Layout**: The Layout directory contains header and footer layouts that are used across the application to maintain a consistent look and feel.
-
-- **Database**: The Database directory contains MySQL file of the Garbage Complaint System Database.
-
 ## Features
 
 - **User Registration**: Users can sign up for the platform, providing their necessary information.
@@ -38,37 +28,7 @@ The Garbage Complaint System is a web-based application developed using PHP and 
 
 - **PHP**: The project's backend is built using PHP, which handles server-side logic and database interactions.
 
-- **Tailwind CSS**: The Tailwind CSS framework is used for styling and creating a responsive user interface.If you failed to load 
-any styles then run this command in your terminal 
--> npx tailwindcss -i ./src/tailwind.css -o ./public/style.css --watch
-
-## Getting Started
-
-To get started with the Garbage Complaint System, follow these steps:
-
-1. Clone this repository to your local machine.
-
-2. Set up a web server with PHP support (e.g., Apache, Nginx) and configure it to serve the project files.
-
-3. Import the database schema provided in the project.
-
-4. Run this project as http://localhost/GarbageComplaintSystem/public/
-
-## Important Note:
-Please be aware that to successfully use the mailing features in this application, you must configure the email settings in XAMPP correctly. Failure to do so may result in certain actions not functioning as expected.
-
-## Default Admin Login Credentials
-
-To access the admin panel, you can use the following default login credentials:
-
-- **Username**: ankushruzal@gmail.com
-- **Password**: 12345678
-
-Please note that it's crucial to change the default password after your initial login for security reasons.
-
-## License
-
-This project is licensed under the Rudal Kunwar.
+- **Tailwind CSS**: The Tailwind CSS framework is used for styling and creating a responsive user interface
 
 
 
