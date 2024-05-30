@@ -65,6 +65,13 @@
 
 </html>
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '..\PHPMailer/src/Exception.php';
+require '..\PHPMailer/src/PHPMailer.php';
+require '..\PHPMailer/src/SMTP.php';
+
 if (isset($_POST['submit'])) {
     $filename = $_FILES["bin_photo"]["name"];
     $tempname = $_FILES["bin_photo"]["tmp_name"];
@@ -84,26 +91,39 @@ if (isset($_POST['submit'])) {
             $qry2 = "UPDATE garbagebins set bin_status = 'Complained' WHERE bin_id = $binid ";
             mysqli_query($con, $qry2);
 
-            //mail to admin
-            $to = "ankushruzal@gmail.com";
-            $subject = "Complaint Notification";
-            $header = "From: $useremail";
-            $message = "Dear Admin,\n\n";
-            $message .= "I would like to report a complaint regarding the garbage bin.\n\n";
-            $message .= "Complaint details:   $comp_msg \n\n";
-            $message .= "Wating for your Reply.\n\n";
-            $message .= "Best regards,\n";
-            $message .= "$user";
+            // Mail to admin using Gmail SMTP with PHPMailer
+            $mail = new PHPMailer(true);
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'mutoorom@gmail.com'; // Your Gmail address
+                $mail->Password   = 'gnsi ltcz hqyy arlc'; // Your Gmail password
+                $mail->SMTPSecure = 'tls';
+                $mail->Port       = 587;
 
-            if (mail($to, $subject, $message, $header)) {
-                echo '<script> alert("Bin Complain Sucessfully"); </script> ';
+                //Recipients
+                $mail->setFrom('mutoorom@gmail.com', $user); // Your email address and name
+                $mail->addAddress('martin.mutooro@gmail.com', 'Admin'); // Admin's email address and name
+                
+                //Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Complaint Notification';
+                $mail->Body    = "Dear Admin,<br><br>I would like to report a complaint regarding the garbage bin $binId<br><br>Complaint details: $comp_msg<br><br>Waiting for your Reply.<br><br>Best regards,<br>$user";
+                
+                $mail->send();
+                echo '<script> alert("Bin Complain Successfully"); </script> ';
                 echo '<script>window.location.href = "userdashboard.php";</script>';
+            } catch (Exception $e) {
+                echo '<script> alert("Error: ' . $mail->ErrorInfo . '"); </script>';
             }
         } else {
-            echo '<script> alert("Error:Please try agian."); </script>';
+            echo '<script> alert("Error: Please try again."); </script>';
         }
     } else {
         echo '<script> alert("This bin is already Reported Or on collection."); </script>';
     }
 }
 ?>
+

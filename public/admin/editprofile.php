@@ -65,8 +65,7 @@
                                 Profile Picture
                             </label>
                             <div class="w-full h-1/2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none">
-                                <img src="<?php echo $data['picture']; ?>" alt="">
-                            </div>
+                         </div>
                             <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="file" name="photo" id="uploadfile" value="<?php echo $profile_pic ;?>" >
                         </div>
                         <div class="mb-6 text-center">
@@ -78,7 +77,8 @@
             </div>
         </div>
     </div>
-</body>
+</body>                                <img src="<?php echo $data['picture']; ?>" alt="">
+   
 
 </html>
 
