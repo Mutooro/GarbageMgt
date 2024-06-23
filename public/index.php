@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garbage Complaint system</title>
     <script src="https://kit.fontawesome.com/62f9066fa7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-9I3QJCKMA8JYLjRYbKuUzQ1VpKZkMZb5K01BRFz9Z2hH6rNK8i3h9k+hq3TbHTvP+0+KX5Hc/L33aVn2gG1eTQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="style.css">
 
 </head>
@@ -183,7 +185,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h4 class="text-2xl font-bold">Our Location</h4>
-                                    <p class="text-gray-600">Bharatpur, Chitwan, Nepal</p>
+                                    <p class="text-gray-600">Makerere, Kampala</p>
                                 </div>
                             </div>
                             <div class="w-full mx-auto mb-6 flex">
@@ -192,7 +194,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h4 class="text-2xl font-bold">Call Us</h4>
-                                    <p class="text-gray-600">+977 056 527237</p>
+                                    <p class="text-gray-600">+256707064552</p>
                                 </div>
                             </div>
                             <div class="w-full mx-auto flex">

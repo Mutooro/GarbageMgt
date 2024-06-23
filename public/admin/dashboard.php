@@ -10,8 +10,11 @@
 </head>
 
 <body>
+	<!--  i will insert the header here -->
 	<div class="flex">
-		<?php include('dashlayout.php');
+		<?php 
+		 include('dashlayout.php');
+		 
 
 		$qry1 = "SELECT * FROM collections WHERE collection_status = 'Completed'";
 		$res1 = mysqli_query($con, $qry1);

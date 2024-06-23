@@ -14,13 +14,14 @@ if (isset($_SESSION['driverid'])) {
   <link rel="stylesheet" href="../style.css" />
 </head>
 
-<body>
-  <div class="bg-yellow-300 h-screen w-screen">
+<body class="font-sans antialiased">
+  <div class="bg-gray-300 h-screen w-screen">
     <div class="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
       <div class="flex rounded-lg shadow-lg w-full sm:w-3/4 lg:w-1/2 bg-white sm:mx-0" style="height: 500px">
-        <div class="flex flex-col w-full md:w-1/2 p-4 bg-violet-200">
-          <div class="flex flex-col flex-1 justify-center mb-8">
-            <h1 class="text-4xl text-center font-thin">Log In to continue</h1>
+        <div class="flex flex-col w-full md:w-1/2 p-4 bg-white-200">
+          <div class="flex flex-col items-center justify-center mb-8">
+          <img src="../images/adminlog.jpg" alt="adminlogo" class="w-32 mx-auto rounded-lg">
+            <h1 class="text-2xl font-bold mt-2">Log In to continue</h1>
             <div class="w-full mt-4">
               <form class="form-horizontal w-3/4 mx-auto" method="POST" action="">
                 <div class="flex flex-col mt-4">
