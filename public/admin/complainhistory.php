@@ -22,7 +22,7 @@
             <div class="w-full p-5 ">
                 <h2 class="text-3xl border-b-2 border-blue-600">Complain Histories</h2>
             </div>
-            <div class="container max-w-full px-4 mx-auto sm:px-8">
+            <div class="container mx-auto px-4 py-8 ">
                 <div class="py-5">
                     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
                         <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">

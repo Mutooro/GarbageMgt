@@ -11,6 +11,8 @@
 
 <body>
 	<!--  i will insert the header here -->
+
+	<?php  include_once('../layout/nav.php')  ?>
 	<div class="flex">
 		<?php 
 		 include('dashlayout.php');
@@ -89,23 +91,23 @@
 					<div class="py-8">
 						<div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
 							<div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
-								<table class="min-w-full leading-normal">
+								<table id="myTable" class="min-w-full">
 									<thead>
-										<tr>
-											<th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+										<tr class = "bg-green-100 ">
+										<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Bin ID
 											</th>
-											<th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Location
 											</th>
-											<th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Bin Type
 											</th>
 
-											<th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Capacity
 											</th>
-											<th scope="col" class="px-5 py-3 text-sm font-normal text-left text-gray-800 uppercase bg-white border-b border-gray-200">
+											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Status
 											</th>
 									</thead>
@@ -114,31 +116,31 @@
 										while ($data = mysqli_fetch_assoc($result)) {
 										?>
 											<tr>
-												<td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+											<td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['bin_id'] ?>
 													</p>
 													</p>
 												</td>
-												<td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+												<td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['location'] ?>
 													</p>
 												</td>
-												<td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+												<td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['type'] ?>
 													</p>
 												</td>
-												<td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+												<td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['capacity'] ?>
 
 													</p>
 												</td>
 
-												<td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+												<td class="px-6 py-4 whitespace-nowrap">
 													<span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
 														<span aria-hidden="true" class="absolute inset-0 bg-green-200 rounded-full opacity-50">
 														</span>
