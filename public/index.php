@@ -145,13 +145,13 @@
                         <br>
                         <img class="w-32 mx-auto rounded-full" src="images/basanta.png" alt="">
 
-                        <div class="text-center mt-2 text-3xl font-medium">Poudel Basanta</div>
+                        <div class="text-center mt-2 text-3xl font-medium">Mbambu Isabela</div>
                         <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Customer Service Representative</div>
                     </div>
                     <div class="text-white card mx-auto bg-sky-300 rounded-lg max-w-md w-full">
                         <br>
                         <img class="w-32 mx-auto rounded-full" src="images/prateek.png" alt="">
-                        <div class="text-center mt-2 text-3xl font-medium ">Prza Prateek</div>
+                        <div class="text-center mt-2 text-3xl font-medium ">Peter Muhindo</div>
                         <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Driver</div>
 
 
@@ -160,7 +160,7 @@
                         <br>
                         <img class="w-32 mx-auto rounded-full" src="images/aakash2.jpg" alt="">
 
-                        <div class="text-center mt-2 text-3xl font-medium">Aakash Kandel</div>
+                        <div class="text-center mt-2 text-3xl font-medium">Nakaziba Immy</div>
                         <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Driver</div>
                     </div>
                 </div>

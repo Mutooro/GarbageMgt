@@ -171,30 +171,74 @@
 </body>
 
 </html>
+
+
+<!-- replying to feedbach -->
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '..\PHPMailer/src/Exception.php';
+require '..\PHPMailer/src/PHPMailer.php';
+require '..\PHPMailer/src/SMTP.php';
+
 if (isset($_POST['submit'])) {
     $id = $_POST['fid'];
-
     $name = $_POST['user-name'];
     $to = $_POST['user-email'];
     $msg = $_POST['admin-msg'];
     $subject = "Feedback Reply";
-    $header = "From:admin@gcs.com";
     $message = "Dear $name,\n\n";
-    $message .= "Thank you for your feedback.\n\n";
+    $message .= "Thank you for contacting us.\n\n";
     $message .= "$msg \n\n";
     $message .= "Best regards,\n";
     $message .= "Garbage Complaint System";
-
-
-    //qry 
-    $sql = "UPDATE feedback set status = 1 WHERE id=$id";
-    if (mail($to, $subject, $message, $header) && mysqli_query($con, $sql)) {
-        echo '<script>alert("Message Sent.")</script>';
-        echo '<script>window.location.href = "dashboard.php";</script>';
+    
+    //db connection
+    $sql_admin = "SELECT email FROM admin WHERE id = 1"; // Adjust the query as per your database schema
+    $result_admin = mysqli_query($con, $sql_admin);
+    
+    if ($result_admin) {
+        $admin_row = mysqli_fetch_assoc($result_admin);
+        $admin_email = $admin_row['email'];
     } else {
-        echo '<script>alert("Error Sending Message.Please try again later.")</script>';
+        echo "Error fetching admin email: " . mysqli_error($con);
+        exit;
+    }
+
+    // Update email configuration (SMTP details)
+    $mail = new PHPMailer(true); // Passing `true` enables exceptions
+
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'mutoorom@gmail.com'; // Your Gmail address
+        $mail->Password   = 'gnsi ltcz hqyy arlc'; // Your Gmail password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+        //Recipients
+        $mail->setFrom($admin_email, 'Garbage Complaint System');
+        $mail->addAddress($to, $name); // Add a recipient
+
+        //Content
+        $mail->isHTML(false); // Set email format to plain text
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        // Update feedback status
+        $sql = "UPDATE feedback SET status = 1 WHERE id = $id";
+        
+        // Send email and update database
+        if ($mail->send() && mysqli_query($con, $sql)) {
+            echo '<script>alert("Message Sent.")</script>';
+            echo '<script>window.location.href = "dashboard.php";</script>';
+        } else {
+            echo '<script>alert("Error Sending Message. Please try again later.")</script>';
+        }
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-
 ?>

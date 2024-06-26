@@ -4,6 +4,7 @@ if (!isset($_SESSION['username'])) {
     header('location:ulogin.php');
 }
 $user = $_SESSION['username'];
+
 ?>
 <?php
 $con = mysqli_connect("localhost", "root", "", "project_gcs");

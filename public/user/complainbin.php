@@ -64,15 +64,65 @@
 </body>
 
 </html>
+
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\Exception;
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_message'])) {
+    
 
-require '..\PHPMailer/src/Exception.php';
-require '..\PHPMailer/src/PHPMailer.php';
-require '..\PHPMailer/src/SMTP.php';
+    require '..\PHPMailer\src\Exception.php';
+    require '..\PHPMailer\src\PHPMailer.php';
+    require '..\PHPMailer\src\SMTP.php';
 
-if (isset($_POST['submit'])) {
+    // Start the session
+    
+
+    // Assuming you have logged in user information available in $_SESSION or similar
+    if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+        $loggedInUsername = $_SESSION['username'];
+    } else {
+        echo "No user logged in.";
+        exit;
+    }
+
+    // Database query to fetch logged-in user's email and username
+    $sql_user = "SELECT user_name, email FROM users WHERE user_name = '$loggedInUsername'";
+    $result_user = mysqli_query($con, $sql_user);
+
+    if ($result_user) {
+        $user_row = mysqli_fetch_assoc($result_user);
+        if ($user_row) {
+            $user_email = $user_row['email'];
+            $user_name = $user_row['user_name'];
+        } else {
+            echo "User not found.";
+            exit;
+        }
+    } else {
+        echo "Error fetching user email: " . mysqli_error($con);
+        exit;
+    }
+
+    // Database query to fetch admin's email
+    $sql_admin = "SELECT email, name FROM admin WHERE id = 1"; 
+    $result_admin = mysqli_query($con, $sql_admin);
+
+    if ($result_admin) {
+        $admin_row = mysqli_fetch_assoc($result_admin);
+        if ($admin_row) {
+            $admin_email = $admin_row['email'];
+            $admin_name = $admin_row['name'];
+        } else {
+            echo "Admin not found.";
+            exit;
+        }
+    } else {
+        echo "Error fetching admin email: " . mysqli_error($con);
+        exit;
+    }
+
     $filename = $_FILES["bin_photo"]["name"];
     $tempname = $_FILES["bin_photo"]["tmp_name"];
     $folder = "binpic/" . $filename;
@@ -84,6 +134,7 @@ if (isset($_POST['submit'])) {
     $res = mysqli_query($con, $qry1);
     $row = mysqli_fetch_assoc($res);
     $binstatus = $row['bin_status'];
+
     if (strcmp($binstatus, 'use') == 0) {
         $qry2 = "INSERT INTO complaints (user_id, bin_id, description, bin_picture, timestamp) VALUES ($userid, $binid, '$comp_msg', '$folder', CURRENT_TIMESTAMP)";
         $notify1 = "INSERT INTO notification (from_id,to_id,message) VALUES ($userid,1,'New Complain is here.')";
@@ -91,39 +142,39 @@ if (isset($_POST['submit'])) {
             $qry2 = "UPDATE garbagebins set bin_status = 'Complained' WHERE bin_id = $binid ";
             mysqli_query($con, $qry2);
 
-            // Mail to admin using Gmail SMTP with PHPMailer
-            $mail = new PHPMailer(true);
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'mutoorom@gmail.com'; // Your Gmail address
-                $mail->Password   = 'gnsi ltcz hqyy arlc'; // Your Gmail password
-                $mail->SMTPSecure = 'tls';
-                $mail->Port       = 587;
+    // Create a PHPMailer instance
+    $mail = new PHPMailer(true); 
 
-                //Recipients
-                $mail->setFrom('mutoorom@gmail.com', $user); // Your email address and name
-                $mail->addAddress('martin.mutooro@gmail.com', 'Admin'); // Admin's email address and name
-                
-                //Content
-                $mail->isHTML(true);
-                $mail->Subject = 'Complaint Notification';
-                $mail->Body    = "Dear Admin,<br><br>I would like to report a complaint regarding the garbage bin $binId<br><br>Complaint details: $comp_msg<br><br>Waiting for your Reply.<br><br>Best regards,<br>$user";
-                
-                $mail->send();
-                echo '<script> alert("Bin Complain Successfully"); </script> ';
-                echo '<script>window.location.href = "userdashboard.php";</script>';
-            } catch (Exception $e) {
-                echo '<script> alert("Error: ' . $mail->ErrorInfo . '"); </script>';
-            }
-        } else {
-            echo '<script> alert("Error: Please try again."); </script>';
-        }
-    } else {
-        echo '<script> alert("This bin is already Reported Or on collection."); </script>';
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'mutoorom@gmail.com'; 
+        $mail->Password   = 'gnsi ltcz hqyy arlc'; 
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        // Recipients
+        $mail->setFrom($user_email, $user_name);
+        $mail->addAddress($admin_email, $admin_name);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Complaint Notification';
+        $mail->Body    = "Dear Admin,<br><br>I would like to report a complaint regarding the garbage bin $binid<br><br>Complaint details: " . $_POST['complaint_message'] . "<br><br>Waiting for your Reply.<br><br>Best regards,<br>$user_name";
+
+        // Send email
+        $mail->send();
+
+        echo '<script> alert("Bin Complaint Sent Successfully"); </script> ';
+        echo '<script>window.location.href = "userdashboard.php";</script>';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
+} else {
+    echo '<script> alert("This bin is already Reported Or on collection."); </script>';
+}
+}
 }
 ?>
-
