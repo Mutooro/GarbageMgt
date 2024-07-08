@@ -1,5 +1,30 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '..\PHPMailer\src\Exception.php';
+require '..\PHPMailer\src\PHPMailer.php';
+require '..\PHPMailer\src\SMTP.php';
+
 $con = mysqli_connect('localhost', 'root', '', 'project_gcs');
+
+ // Database query to fetch admin's email
+ $sql_admin = "SELECT email, name FROM admin WHERE id = 1"; 
+ $result_admin = mysqli_query($con, $sql_admin);
+
+ if ($result_admin) {
+     $admin_row = mysqli_fetch_assoc($result_admin);
+     if ($admin_row) {
+         $admin_email = $admin_row['email'];
+         $admin_name = $admin_row['name'];
+     } else {
+         echo "Admin not found.";
+         exit;
+     }
+ } else {
+     echo "Error fetching admin email: " . mysqli_error($con);
+     exit;
+ }
+
 if (isset($_POST['update'])) {
     $complain = $_POST['complain_id'];
     $complain_msg = $_POST['description'];
@@ -61,30 +86,48 @@ if (isset($_POST['update'])) {
 
             echo '<script>alert("Complain Accepted and Updated.")</script>';
 
-            //mail for user
             $to =  $useremail;
-            $subject = "Complaint Reply";
-            $header = "From:admin@gcs.com";
-            $message = "Dear $username,\n\n";
-            $message .= "Thank you for your Complain.\n\n";
-            $message .= "$complain_msg \n\n";
-            $message .= "Best regards,\n";
-            $message .= "Garbage Complain System";
+            $dto = $driveremail;
+           // Create a new PHPMailer instance
+$mail = new PHPMailer(true);
 
-            //mail for driver
-            $dto =  $driveremail;
-            $dsubject = "Complaint Reply";
-            $dmessage = "Dear $assigned_driver,\n\n";
-            $dmessage .= "You have been assigned to the bin.\n\n";
-            $dmessage .= "Please check your assigned task for the more information. \n\n";
-            $dmessage .= "Best regards,\n";
-            $dmessage .= "Garbage Complaint System";
-            //qry 
-            if (mail($to, $subject, $message, $header) && mail($dto, $dsubject, $dmessage, $header)) {
-                echo '<script>alert("Update Mail is sent to user and driver.")</script>';
-            } else {
-                echo '<script>alert("Error sending mail.")</script>';
-            }
+try {
+    // Server settings
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'mutoorom@gmail.com'; 
+    $mail->Password   = 'gnsi ltcz hqyy arlc'; 
+    $mail->SMTPSecure = 'tls';
+    $mail->Port       = 587;
+
+    // Recipients for the user
+    $mail->setFrom($admin_email, 'Garbage Complaint System');
+    $mail->addAddress($to);  // Add a recipient
+
+    // Content for the user
+    $mail->isHTML(false);
+    $mail->Subject = $subject;
+    $mail->Body    = $message;
+
+    // Send the email to the user
+    $mail->send();
+
+    // Recipients for the driver
+    $mail->clearAddresses();
+    $mail->addAddress($dto);  // Add a recipient
+
+    // Content for the driver
+    $mail->Subject = $dsubject;
+    $mail->Body    = $dmessage;
+
+    // Send the email to the driver
+    $mail->send();
+
+    echo '<script>alert("Update Mail is sent to user and driver.")</script>';
+} catch (Exception $e) {
+    echo '<script>alert("Error sending mail: ' . $mail->ErrorInfo . '")</script>';
+}
 
             echo '<script>window.location.href = "dashboard.php";</script>';
         } else {
