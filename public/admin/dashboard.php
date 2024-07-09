@@ -12,7 +12,7 @@
 <body>
 	<!--  i will insert the header here -->
 
-	<?php  include_once('../layout/nav.php')  ?>
+	
 	<div class="flex">
 		<?php 
 		 include('dashlayout.php');

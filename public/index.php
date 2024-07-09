@@ -1,3 +1,39 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "project_gcs";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch data from both driver and admin tables
+$sql = "(SELECT driver_name as name, driver_picture as picture_url, 'Driver' as role FROM drivers)
+        UNION
+        (SELECT name, picture as picture_url, 'Admin' as role FROM admin)";
+
+$result = $conn->query($sql);
+
+$team_members = array();
+
+if ($result->num_rows > 0) {
+    // Fetch all rows and store them in an array
+    while ($row = $result->fetch_assoc()) {
+        $team_members[] = $row;
+    }
+} else {
+    echo "No team members found.";
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,38 +169,25 @@
             </div>
 
             <div class="mt-12">
-                <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 lg:mb-6">
-                    Our Team
-                </h1>
-                <p class="mt-4 leading-7 text-gray-700">
-                    Our team is made up of experienced professionals who are passionate about waste management and sustainability. We believe that our team is our most valuable asset, and we invest in their training and development to ensure that they have the knowledge and skills to provide the best service to our customers.
-                </p>
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 lg:mb-6">
+            Our Team
+        </h1>
+        <p class="mt-4 leading-7 text-gray-700">
+            Our team is made up of experienced professionals who are passionate about waste management and sustainability. We believe that our team is our most valuable asset, and we invest in their training and development to ensure that they have the knowledge and skills to provide the best service to our customers.
+        </p>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <?php foreach ($team_members as $member): ?>
+                <div class="text-white card mx-auto bg-sky-300 rounded-lg max-w-md w-full">
+                    <br>
+                    <img class="w-32 mx-auto rounded-full" src="admin/<?php echo $member['picture_url']; ?>" alt="<?php echo $member['name']; ?>">
 
-                    <div class="text-white card mx-auto bg-violet-300 rounded-lg max-w-md w-full">
-                        <br>
-                        <img class="w-32 mx-auto rounded-full" src="images/basanta.png" alt="">
-
-                        <div class="text-center mt-2 text-3xl font-medium">Mbambu Isabela</div>
-                        <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Customer Service Representative</div>
-                    </div>
-                    <div class="text-white card mx-auto bg-sky-300 rounded-lg max-w-md w-full">
-                        <br>
-                        <img class="w-32 mx-auto rounded-full" src="images/prateek.png" alt="">
-                        <div class="text-center mt-2 text-3xl font-medium ">Peter Muhindo</div>
-                        <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Driver</div>
-
-
-                    </div>
-                    <div class="text-white card mx-auto bg-sky-300 rounded-lg max-w-md w-full">
-                        <br>
-                        <img class="w-32 mx-auto rounded-full" src="images/aakash2.jpg" alt="">
-
-                        <div class="text-center mt-2 text-3xl font-medium">Nakaziba Immy</div>
-                        <div class="px-6 py-5 text-center mt-2 font-semibold text-md"> Driver</div>
-                    </div>
+                    <div class="text-center mt-2 text-3xl font-medium"><?php echo $member['name']; ?></div>
+                    <div class="px-6 py-5 text-center mt-2 font-semibold text-md"><?php echo $member['role']; ?></div>
                 </div>
-            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
             <div class="mt-12">
                 <h2 class="text-xl lg:text-2xl font-bold text-gray-900">Our Mission</h2>
                 <p class="mt-4 leading-7 text-gray-700">

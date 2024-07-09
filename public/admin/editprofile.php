@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .profile-pic {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
     <script>
         function validate() {
             var name = document.forms["form"]["name"].value;
@@ -52,72 +60,63 @@
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
                                 Name
                             </label>
-                            <input value="<?php echo $data['name'];?>" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="name" name="name" placeholder="Name" type="text" required />
+                            <input value="<?php echo htmlspecialchars($data['name']); ?>" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="name" name="name" placeholder="Name" type="text" required />
                         </div>
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
                                 Email
                             </label>
-                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" value="<?php echo $data['email']; ?>" name="email" type="email" placeholder="Email" required />
+                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" value="<?php echo htmlspecialchars($data['email']); ?>" name="email" type="email" placeholder="Email" required />
                         </div>
                         <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+                            <label class="block mb-2 text-sm font-bold text-gray-700" for="photo">
                                 Profile Picture
                             </label>
-                            <div class="w-full h-1/2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none">
-                         </div>
-                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="file" name="photo" id="uploadfile" value="<?php echo $profile_pic ;?>" >
+                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="file" name="photo" id="uploadfile" value="<?php echo htmlspecialchars($profile_pic); ?>">
                         </div>
                         <div class="mb-6 text-center">
                             <input type="submit" value="Update Profile" class="btn w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700" name="updateprofile" onclick="return confirm('Are You Sure To Edit Profile ?')">
                         </div>
                     </form>
+                    <div class="flex justify-center">
+                        <img src="<?php echo htmlspecialchars($data['picture']); ?>" alt="Profile Picture" class="profile-pic">
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</body>                                <img src="<?php echo $data['picture']; ?>" alt="">
-   
+</body>
 
 </html>
 
 <?php
 if (isset($_POST['updateprofile'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    if(isset($_FILES['photo']) && $_FILES['photo']['error'] == 0)
-    {
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
         $filename = $_FILES["photo"]["name"];
         $tempname = $_FILES["photo"]["tmp_name"];
         $folder = "profilepic/" . $filename;
         move_uploaded_file($tempname, $folder);
-    
-        $qry = "UPDATE admin SET name='$name',email = '$email',picture='$folder' WHERE id=1 ";
+
+        $qry = "UPDATE admin SET name='$name', email='$email', picture='$folder' WHERE id=1";
         if ($reslt = mysqli_query($con, $qry)) {
-    
-            echo '<script> alert("Profile Picture Changed Sucessfully."); </script> ';
+            echo '<script>alert("Profile Picture Changed Successfully.");</script>';
             echo '<script>window.location.href = "dashboard.php";</script>';
         } else {
-            echo '<script> alert("Unable to Update Profile"); </script> ';
+            echo '<script>alert("Unable to Update Profile");</script>';
         }
-    }
-    else{
-        $qry = "UPDATE admin SET name='$name',email = '$email' WHERE id=1 ";
+    } else {
+        $qry = "UPDATE admin SET name='$name', email='$email' WHERE id=1";
         if ($reslt = mysqli_query($con, $qry)) {
-    
-            echo '<script> alert("Profile Updated Sucessfully,Session Expired!!!"); </script> ';
+            echo '<script>alert("Profile Updated Successfully, Session Expired!!!");</script>';
             session_unset();
             session_destroy();
             echo '<script>window.location.href = "alogin.php";</script>';
         } else {
-            echo '<script> alert("Unable to Update Profile"); </script> ';
+            echo '<script>alert("Unable to Update Profile");</script>';
         }
-
     }
- 
 }
 ?>
-</body>
-
-</html>
