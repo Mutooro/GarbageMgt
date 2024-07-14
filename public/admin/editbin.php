@@ -34,7 +34,7 @@ $updata = mysqli_fetch_assoc($result);
                         </label>
                         <input value="<?php echo $updata['bin_id'] ?>" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="binid" name="binid" type="text" placeholder="Bin Id" required />
                     </div>
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-gray-700" for="bintype">Bin Type</label>
                         <select class="block w-full px-4 py-2 rounded-md border shadow focus:outline-none focus:shadow-outline" name="bintype" id="bintype">
                             <option value="Organic">Organic</option>
@@ -43,7 +43,7 @@ $updata = mysqli_fetch_assoc($result);
 
                         </select>
 
-                    </div>
+                    </div> -->
                     <div class="mb-4">
                         <label class="block mb-2 text-sm font-bold text-gray-700" for="capacity">
                             Capacity
