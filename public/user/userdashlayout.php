@@ -129,16 +129,53 @@ $useremail = $data['email'];
                     </a>
                 </li>
                 <li>
-                    <a href="../user/logout.php" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-gray-800 pr-6" onClick="return confirm('Do you want to Logout ?')">
+                    <a onclick="showLogout();" class="text-white hover:bg-gray-600 px-3 py-2 rounded-md cursor-pointer flex items-center">
+                        <!-- <i class="fas fa-sign-out-alt mr-2"></i> -->
                         <span class="inline-flex justify-center items-center ml-4">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                         </span>
-
                         <span class="ml-2 text-sm tracking-wide truncate"> Logout</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+
+    <div id="logoutbox" class="hidden fixed inset-0 bg-opacity-40 backdrop-blur-sm">
+    <div class="flex h-full justify-center items-center">
+        <div class="flex flex-col p-10 rounded-lg shadow bg-white">
+            <div class="text-center">
+                <h2 class="font-semibold text-gray-800">Are you sure you want to log out?</h2>
+            </div>
+            <div class="flex items-center mt-6">
+                <button onclick="hideLogout()" class="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md">
+                    Cancel
+                </button>
+                <a href="" id="confirmLogout" class="flex-1 px-4 py-2 ml-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md text-center">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+        var menuItems = document.querySelector('ul');
+        menuItems.classList.toggle('hidden');
+    });
+</script>
+<script>
+    function showLogout() {
+        document.getElementById("logoutbox").style.display = "block";
+        // Adjust the logout link as needed
+        document.getElementById('confirmLogout').href = "../user/logout.php";
+    }
+
+    function hideLogout() {
+        document.getElementById("logoutbox").style.display = "none";
+    }
+</script>

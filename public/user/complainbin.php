@@ -33,11 +33,11 @@
                         <span class=" block border border-gray-300 p-2 w-full bg-violet-100"><?php echo $row['location'] ?></span>
 
                     </div>
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label for="capacity" class="block text-gray-700 font-semibold mb-2">Bin Type</label>
                         <span class=" block border border-gray-300 p-2 w-full bg-violet-100"><?php echo $row['type'] ?></span>
 
-                    </div>
+                    </div> -->
                     <div class="mb-4">
                         <label for="capacity" class="block text-gray-700 font-semibold mb-2">Capacity</label>
                         <span class=" block border border-gray-300 p-2 w-full bg-violet-100"><?php echo $row['capacity'] ?></span>
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_message'])) 
     require '..\PHPMailer\src\PHPMailer.php';
     require '..\PHPMailer\src\SMTP.php';
 
-    // Start the session
+    
     
 
     // Assuming you have logged in user information available in $_SESSION or similar
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complaint_message'])) 
         exit;
     }
 
-    // Database query to fetch logged-in user's email and username
+    
     $sql_user = "SELECT user_name, email FROM users WHERE user_name = '$loggedInUsername'";
     $result_user = mysqli_query($con, $sql_user);
 

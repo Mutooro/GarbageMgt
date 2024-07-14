@@ -5,7 +5,7 @@
     <div class="flex justify-between">
       <div class="">
         <a href="index.php" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-          <span class="font-bold">Garbage Complaint system</span>
+          <span class="font-bold">Plastic management system</span>
         </a>
       </div>
 

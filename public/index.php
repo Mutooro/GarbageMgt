@@ -40,7 +40,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garbage Complaint system</title>
+    <title>Plastic management system</title>
     <script src="https://kit.fontawesome.com/62f9066fa7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-9I3QJCKMA8JYLjRYbKuUzQ1VpKZkMZb5K01BRFz9Z2hH6rNK8i3h9k+hq3TbHTvP+0+KX5Hc/L33aVn2gG1eTQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -54,7 +54,7 @@ $conn->close();
         <div class="container flex flex-col md:flex-row items-center">
             <div class="flex flex-col w-full lg:w-1/2  p-5 justify-center items-center">
                 <div class="flex flex-col justify-center items-center h-full ">
-                    <h1 class="block font-bold text-3xl my-4">Welcome to the Garbage Complaint System</h1>
+                    <h1 class="block font-bold text-3xl my-4">Welcome to the Plastic management System</h1>
                     <p class="leading-normal mb-4"> A modern way to manage garbage Complaint, collection and disposal.</p>
                 </div>
 
@@ -120,7 +120,7 @@ $conn->close();
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
                                 </div>
-                                Efficient Garbage Management
+                                Efficient Plastic Management
                             </dt>
                             <dd class="mt-2 text-base leading-7 text-gray-600">Effectively manage garbage collection and disposal based on the received Complaints.</dd>
                         </div>
@@ -150,7 +150,7 @@ $conn->close();
                 <div class="flex flex-col lg:flex-row">
                     <div class="lg:w-1/2">
                         <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 lg:mb-6">
-                            About Garbage Complaint System
+                            About Plastic management  System
                         </h1>
                         <p class="text-lg leading-7 text-gray-700 mb-4">
                             Welcome to the Garbage Complaint System! We are committed to creating a cleaner and more sustainable environment by addressing the issue of garbage disposal. Our platform serves as a dedicated space for individuals and communities to voice their concerns regarding waste management and work towards effective solutions.

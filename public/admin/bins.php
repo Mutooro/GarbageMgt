@@ -46,7 +46,7 @@
                                         <tr class="bg-green-100 ">
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bin ID</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                            
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacity</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acton</th>
@@ -62,7 +62,7 @@
                                             <tr class="">
                                                 <td class="px-6 py-4 whitespace-nowrap"><?php echo $a; ?></td>
                                                 <td class="px-6 py-4 whitespace-nowrap"><?php echo $d['bin_id'] ?></td>
-                                                <td class="px-6 py-4 whitespace-nowrap"><?php echo $d['type'] ?></td>
+                                              
                                                 <td class="px-6 py-4 whitespace-nowrap"><?php echo $d['capacity'] ?></td>
                                                 <td class="px-6 py-4 whitespace-nowrap"><?php echo $d['location'] ?></td>
                                                 <td class="flex px-6 py-4 whitespace-nowrap justify-start space-x-1">

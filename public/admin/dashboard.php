@@ -100,9 +100,9 @@
 											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Location
 											</th>
-											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Bin Type
-											</th>
+											</th> -->
 
 											<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Capacity
@@ -128,11 +128,11 @@
 														<?php echo $data['location'] ?>
 													</p>
 												</td>
-												<td class="px-6 py-4 whitespace-nowrap">
+												<!-- <td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['type'] ?>
 													</p>
-												</td>
+												</td> -->
 												<td class="px-6 py-4 whitespace-nowrap">
 													<p class="text-gray-900 whitespace-no-wrap">
 														<?php echo $data['capacity'] ?>

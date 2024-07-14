@@ -38,7 +38,7 @@
                                     <tr class="bg-green-100 ">
                                         <th class="border-gray-400 mx-auto text-left">Bin ID</th>
                                         <th class="border-gray-400 text-left">Location</th>
-                                        <th class="border-gray-400 text-left">Category</th>
+                                        <!-- <th class="border-gray-400 text-left">Category</th> -->
                                         <th class="border-gray-400 text-left">Capacity</th>
                                         <th class="border-gray-400 text-left">Status</th>
                                         <th class="border-gray-400 text-left">Acton</th>
@@ -53,7 +53,7 @@
                                         <tr class="">
                                             <td class="border-gray-400 py-2 w-1/5"><?php echo $d['bin_id'] ?></td>
                                             <td class="border-gray-400 py-2 w-1/5"><?php echo $d['location'] ?></td>
-                                            <td class="border-gray-400 py-2 w-1/5"><?php echo $d['type'] ?></td>
+                                            <!-- <td class="border-gray-400 py-2 w-1/5"><?php echo $d['type'] ?></td> -->
                                             <td class="border-gray-400 py-2 w-1/5"><?php echo $d['capacity'] ?></td>
                                             <th class="border-gray-400 text-left"><?php echo $d['bin_status'] ?></th>
                                             <td class="border-gray-400 mt-3 px-4 w-1/5">
