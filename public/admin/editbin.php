@@ -76,7 +76,7 @@ if (isset($_POST['addbin'])) {
     $capacity = $_POST['capacity'];
     $location = $_POST['location'];
 
-    $qry = "UPDATE garbagebins set bin_id=$id,type='$type',location='$location',capacity='$capacity' WHERE bin_id=$eid";
+    $qry = "UPDATE garbagebins set bin_id=$id,location='$location',capacity='$capacity' WHERE bin_id=$eid";
     if (mysqli_query($con, $qry)) {
 
 
