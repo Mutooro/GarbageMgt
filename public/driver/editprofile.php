@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .profile-pic {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
     <script>
         function validate() {
             var name = document.forms["form"]["name"].value;
@@ -68,7 +76,7 @@
                             Profile Picture
                         </label>
                         <div class="w-full h-1/2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none">
-                            <img src="<?php echo $data['driver_picture'] ?>" alt="">
+                            <img src="<?php echo $data['driver_picture'] ?>" alt="" class="profile-pic">
                         </div>
                         <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" type="file" name="photo" id="uploadfile">
                     </div>
