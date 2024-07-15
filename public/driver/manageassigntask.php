@@ -15,6 +15,11 @@
 
     <?php include('driverdashlayout.php') ?>
     <?php
+
+ini_set('SMTP', 'smtp.gmail.com');
+ini_set('smtp_port', '587');
+ini_set('sendmail_from', 'mutoorom@gmail.com');
+
     $aqry = "SELECT * FROM assigned_bin a JOIN complaints c ON a.complain_id = c.complain_id WHERE assign_id = $asinid";
     $res =  mysqli_query($con, $aqry);
     $data = mysqli_fetch_assoc($res);
@@ -296,46 +301,77 @@
                 echo '<script>alert("Collection Rejected")</script>';
             }
         } else {
-            if (mysqli_query($con, $qrya)) {
-
-                //update driver status
-                $updriver = "UPDATE drivers SET driver_status = 'Free' WHERE driver_id = $driverid";
-                mysqli_query($con, $updriver);
-
-                //update assign status
-                $upassign = "UPDATE assigned_bin SET assign_status = 'Completed' WHERE assign_id =  $assign ";
-                mysqli_query($con,  $upassign);
-
-                //update complain status
-                $rsql2 = "UPDATE complaints set complain_status = 'Completed' WHERE complain_id = $complain";
-                mysqli_query($con, $rsql2);
-
-                //update bin
-                $qry4  = "UPDATE garbagebins set bin_status = 'use' WHERE bin_id = $binId";
-                mysqli_query($con, $qry4);
-
-                //for user
-                $to = $user_email;
-                $subject = "New Garbage Complaint System";
-                $message = "I hope this email finds you well.";
-                $message .= " I am writing to inform you that I have successfully collected the garbage bins from your address as per your complaint registered in our system.\n";
-                $message .= "It is my pleasure to provide you with an update on the status of your request.";
-                $message .= "Thank you.\n";
-                $header = "From:drivergcs@gmail.com";
-
-
-                //for admin
-                $ato = 'ankushruzal@gmail.com';
-                $adminSubject = 'Garbage Bin Collection Notification - Admin';
-                $adminMessage = "Hello Admin,\n\n";
-                $adminMessage .= "This is to inform you that assigned garbage bin has been Collected successfully .\n";
-                $adminMessage .= "Thank you.\n";
-                $adminHeader = 'From: drivergcs@gmail.com';
-                if (mail($to, $subject, $message, $header) && mail($ato,  $adminSubject, $adminMessage, $header)) {
-                    echo '<script>alert("Bin Collection Completed")</script>';
-
-                    echo '<script>window.location.href = "driverdashboard.php";</script>';
+            if ($stmt = $con->prepare($qrya)) {
+                // Execute the first query
+                if ($stmt->execute()) {
+            
+                    // Update driver status
+                    $updriver = "UPDATE drivers SET driver_status = 'Free' WHERE driver_id = ?";
+                    $stmt = $con->prepare($updriver);
+                    $stmt->bind_param("i", $driverid);
+                    if (!$stmt->execute()) {
+                        // Handle error
+                        die("Error updating driver status: " . $stmt->error);
+                    }
+            
+                    // Update assign status
+                    $upassign = "UPDATE assigned_bin SET assign_status = 'Completed' WHERE assign_id = ?";
+                    $stmt = $con->prepare($upassign);
+                    $stmt->bind_param("i", $assign);
+                    if (!$stmt->execute()) {
+                        // Handle error
+                        die("Error updating assign status: " . $stmt->error);
+                    }
+            
+                    // Update complaint status
+                    $rsql2 = "UPDATE complaints SET complain_status = 'Completed' WHERE complain_id = ?";
+                    $stmt = $con->prepare($rsql2);
+                    $stmt->bind_param("i", $complain);
+                    if (!$stmt->execute()) {
+                        // Handle error
+                        die("Error updating complaint status: " . $stmt->error);
+                    }
+            
+                    // Update bin status
+                    $qry4 = "UPDATE garbagebins SET bin_status = 'use' WHERE bin_id = ?";
+                    $stmt = $con->prepare($qry4);
+                    $stmt->bind_param("i", $binId);
+                    if (!$stmt->execute()) {
+                        // Handle error
+                        die("Error updating bin status: " . $stmt->error);
+                    }
+            
+                    // Email notifications
+                    $to = $user_email;
+                    $subject = "New Garbage Complaint System";
+                    $message = "I hope this email finds you well.";
+                    $message .= " I am writing to inform you that I have successfully collected the garbage bins from your address as per your complaint registered in our system.\n";
+                    $message .= "It is my pleasure to provide you with an update on the status of your request.";
+                    $message .= "Thank you.\n";
+                    $header = "From:drivergcs@gmail.com";
+            
+                    $ato = 'ankushruzal@gmail.com';
+                    $adminSubject = 'Garbage Bin Collection Notification - Admin';
+                    $adminMessage = "Hello Admin,\n\n";
+                    $adminMessage .= "This is to inform you that assigned garbage bin has been Collected successfully .\n";
+                    $adminMessage .= "Thank you.\n";
+                    $adminHeader = 'From: drivergcs@gmail.com';
+            
+                    if (mail($to, $subject, $message, $header) && mail($ato, $adminSubject, $adminMessage, $header)) {
+                        echo '<script>alert("Bin Collection Completed")</script>';
+                        echo '<script>window.location.href = "driverdashboard.php";</script>';
+                    } else {
+                        // Handle email sending failure
+                        die("Error sending email notifications.");
+                    }
+                } else {
+                    // Handle error
+                    die("Error executing initial query: " . $stmt->error);
                 }
+                $stmt->close();
+            } else {
+                // Handle error
+                die("Error preparing initial query: " . $con->error);
             }
         }
     }
