@@ -16,9 +16,9 @@
     <?php include('driverdashlayout.php') ?>
     <?php
 
-ini_set('SMTP', 'smtp.gmail.com');
-ini_set('smtp_port', '587');
-ini_set('sendmail_from', 'mutoorom@gmail.com');
+// ini_set('SMTP', 'smtp.gmail.com');
+// ini_set('smtp_port', '587');
+// ini_set('sendmail_from', 'mutoorom@gmail.com');
 
     $aqry = "SELECT * FROM assigned_bin a JOIN complaints c ON a.complain_id = c.complain_id WHERE assign_id = $asinid";
     $res =  mysqli_query($con, $aqry);
