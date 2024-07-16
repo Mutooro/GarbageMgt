@@ -43,14 +43,7 @@
                             </label>
                             <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="binid" name="binid" type="text" placeholder="Bin Id" required />
                         </div>
-                        <div class="mb-4">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="address">Bin Type</label>
-                            <select class="block w-full px-4 py-2 rounded-md border shadow  focus:outline-none focus:shadow-outline" name="bintype" id="">
-                                <option value="Organic">Organic</option>
-                                <option value="Inorganic">Inorganic</option>
-                                <option value="Metallic">Metallic</option>
-                            </select>
-                        </div>
+                       
                         <div class="mb-4">
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="capacity">
                                 Capacity
@@ -77,7 +70,7 @@
 <?php
 if (isset($_POST['addbin'])) {
     $binid = $_POST['binid'];
-    $type = $_POST['bintype'];
+    
     $capacity = $_POST['capacity'];
     $location = $_POST['location'];
 
@@ -87,7 +80,7 @@ if (isset($_POST['addbin'])) {
     if (mysqli_num_rows($res) > 0) {
         echo '<script>alert("Bin ID already exists.")</script>';
     } else {
-        $qry = "INSERT INTO garbagebins(bin_id, type, location, capacity) VALUES ($binid, '$type', '$location', '$capacity')";
+        $qry = "INSERT INTO garbagebins(bin_id, location, capacity) VALUES ($binid,'$location', '$capacity')";
 
         if (mysqli_query($con, $qry)) {
             $_SESSION['message'] = "Bin Added successfully!";
